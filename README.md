@@ -3,12 +3,12 @@
 A reusable Codex skill and Claude Code companion pack for bootstrapping small websites with the stack used by Robot Future:
 
 - GitHub for source control
-- MongoDB Atlas for app data
+- MongoDB Atlas for app data by default
 - Google Cloud Run for web hosting
 - Google Cloud Storage for image hosting
 - Squarespace Domains for domain ownership and DNS
 
-This is not only for Robot Future projects. It is a general-purpose website setup based on the Robot Future stack, aimed at capable builders who can work on an app but do not want to learn every cloud product in depth before they can ship.
+This is not only for Robot Future projects. It is a general-purpose website setup based on the Robot Future stack, aimed at capable builders who can work on an app but do not want to learn every cloud product in depth before they can ship. MongoDB is the reference default, not a requirement; if your app already uses PostgreSQL or another healthy architecture, the workflow should adapt to that instead of forcing a rewrite.
 
 ## What It Does
 
@@ -17,6 +17,7 @@ This is not only for Robot Future projects. It is a general-purpose website setu
 - Pauses only when human input is actually needed, such as browser auth or secret entry
 - Stores reusable local stack settings for later deploys
 - Encodes cheap Cloud Run defaults for low-traffic sites
+- Documents the Robot Future Dockerfile pattern and when to adapt it
 - Provides a repeatable deploy helper so later updates are routine
 
 ## Package Layout
@@ -99,4 +100,4 @@ This is for "vibe coder" through mid-level developers:
 
 - The defaults are opinionated, not universal.
 - Cloud Run is configured for low-cost hobby-site behavior first.
-- The architecture is easy to adapt, but the skill is intentionally optimized around one repeatable path rather than every possible provider combination.
+- The deployment workflow is opinionated, but the application architecture should bend around working projects rather than replacing them.

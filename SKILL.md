@@ -1,6 +1,6 @@
 ---
 name: robot-future-stack-setup
-description: "Bootstrap and maintain the Robot Future-style website stack, a general-purpose setup based on how Robot Future is built rather than a stack limited to Robot Future itself: MongoDB Atlas, Node/Express + React/Vite, Google Cloud Run, Google Cloud Storage image hosting, Squarespace-managed domains, and GitHub repos. Use when Codex needs to guide a vibe-coder through one-time machine/account setup, collect missing credentials interactively, save reusable local config, create any new site using this stack, or deploy/update an existing site with minimal cloud knowledge."
+description: "Bootstrap and maintain the Robot Future-style website stack, a general-purpose setup based on how Robot Future is built rather than a stack limited to Robot Future itself: GitHub repos, Google Cloud Run, Google Cloud Storage image hosting, Squarespace-managed domains, and an app database such as MongoDB Atlas or an existing alternative like PostgreSQL. Use when Codex needs to guide a vibe-coder through one-time machine/account setup, collect missing credentials interactively, preserve an existing app architecture when practical, save reusable local config, create any new site using this stack, or deploy/update an existing site with minimal cloud knowledge."
 ---
 
 # Robot Future Stack Setup
@@ -9,14 +9,14 @@ Use this skill to turn a reasonably technical user into a repeatable one-command
 
 ## Core Workflow
 
-1. Read `references/stack.md` for the target architecture and `references/setup-flow.md` for the operator flow.
+1. Read `references/stack.md` for the default architecture and adaptation rules, `references/setup-flow.md` for the operator flow, and `references/deployment.md` when containerizing or deploying.
 2. Inspect the machine before changing it:
    - Run `scripts/bootstrap.ps1 -CheckOnly`.
    - Reuse existing installs and auth when present.
 3. If required tools or credentials are missing, guide the user through the exact missing step only:
    - `gcloud` browser auth
    - `gh` browser auth
-   - MongoDB Atlas cluster/user/connection string creation
+   - database setup when the project does not already have one
    - Squarespace DNS setup
 4. Save reusable values with `scripts/save-config.ps1`.
 5. For project work, create or update the app using `references/project-conventions.md`.
@@ -34,14 +34,15 @@ Use this skill to turn a reasonably technical user into a repeatable one-command
 - Explain what each service is for in one sentence, then keep moving.
 - Pause only when the user must complete browser auth, paste a secret, choose a project/domain, or approve a billing-impacting choice.
 - Never ask the user to paste Google or GitHub access tokens if browser/device auth is available.
-- Treat MongoDB URIs, session secrets, service-account JSON, and API keys as secrets.
+- Treat database URLs, session secrets, service-account JSON, and API keys as secrets.
 - Do not commit secret-bearing files. Use local env files and user-profile config.
 - Prefer cheap defaults for hobby websites:
   - Cloud Run scales to zero
   - low CPU/memory
   - one max instance unless the user needs more throughput
   - public images in Cloud Storage only when the site requires direct public access
-- If the user wants a different provider or architecture, say this skill is opinionated and adapt only after confirming the deviation.
+- Prefer the user's existing working architecture over a forced rewrite. MongoDB is the Robot Future default, not a requirement.
+- If the user already has PostgreSQL, another database, another frontend, or another backend framework, map the workflow onto what exists unless the user explicitly wants to migrate.
 
 ## One-Time Setup
 
@@ -85,5 +86,6 @@ See `references/claude-bridge.md` for placement and expectations.
 - `references/stack.md`: what the stack is and why each piece exists
 - `references/setup-flow.md`: the full guided onboarding sequence
 - `references/project-conventions.md`: env vars, folders, and app expectations
+- `references/deployment.md`: Dockerfile and Cloud Run deployment guidance
 - `references/cloud-run-cheap.md`: low-cost Cloud Run defaults
 - `references/claude-bridge.md`: how to mirror the workflow in Claude Code

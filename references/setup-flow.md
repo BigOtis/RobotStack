@@ -5,7 +5,7 @@
 Give the user one sentence per service:
 
 - GitHub holds the code.
-- MongoDB stores app data.
+- MongoDB is Robot Future's default app database, but an existing database such as PostgreSQL can stay in place.
 - Cloud Run hosts the app.
 - Cloud Storage hosts images.
 - Squarespace owns the domain and DNS.
@@ -72,7 +72,7 @@ Ask for only values that are missing:
 - Cloud Run service name
 - image bucket name
 - GitHub owner/repo
-- MongoDB connection string
+- database connection string or existing database configuration
 - default domain
 
 Use:
@@ -100,9 +100,10 @@ gcloud storage buckets create gs://<bucket-name> --location=<region>
 
 If the app serves public images directly, configure public access deliberately after explaining the tradeoff.
 
-## 6. Create Or Connect MongoDB
+## 6. Create Or Connect The Database
 
-- If the user has no Atlas account, direct them to create one and a free/low-cost cluster.
+- If the project already has a working database, keep it unless the user wants to migrate.
+- If the user wants the Robot Future default and has no Atlas account, direct them to create one and a free/low-cost cluster.
 - Ask them to create an application database user.
 - Ask them to copy the driver connection string.
 - Remind them to URL-encode special characters in usernames/passwords if needed.
@@ -121,6 +122,8 @@ If the app serves public images directly, configure public access deliberately a
 - Remind the user DNS can take up to 24-48 hours to settle.
 
 ## 9. Deploy
+
+Before deploy, inspect whether the project already has a valid container build. If it needs a Dockerfile, read `deployment.md` and create the smallest Dockerfile that fits the existing runtime. Use the Robot Future Node Dockerfile only when it matches the app.
 
 Run:
 

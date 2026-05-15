@@ -3,7 +3,7 @@
 ## Target Architecture
 
 - GitHub: source repository, remote collaboration, and deploy source of truth
-- MongoDB Atlas: primary document database for site data
+- MongoDB Atlas: Robot Future's default document database for site data
 - Node.js + Express + React + Vite: default web app shape
 - Google Cloud Run: containerized app hosting
 - Google Cloud Storage: uploaded image hosting
@@ -22,7 +22,7 @@
 - One Google Cloud project per site or closely related group of sites
 - One Cloud Run service per web app
 - One Cloud Storage bucket per app or shared brand image bucket
-- One MongoDB Atlas project/cluster for app data
+- One database backend for app data; MongoDB Atlas is the Robot Future default
 - One GitHub repository per app
 
 ## Security Posture
@@ -32,3 +32,9 @@
 - Use least-privilege IAM for buckets and services.
 - Treat public image buckets as intentionally public, not accidentally public.
 
+## Adaptation Rules
+
+- Use the Robot Future stack as a reference architecture, not a forced rewrite.
+- Keep an existing healthy PostgreSQL database if the user already has one.
+- Keep the user's frontend/backend framework when it is already serving the product well.
+- Standardize the deployment workflow around GitHub, Cloud Run, Cloud Storage when needed, and domain/DNS management, while allowing the application internals to vary.
