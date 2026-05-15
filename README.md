@@ -24,16 +24,15 @@ This is not only for Robot Future projects. It is a general-purpose website setu
 ## General Flow
 
 ```mermaid
-flowchart TD
+flowchart LR
   A[Semi-working website ready in repo] --> B[Validate local tooling]
-  B --> C[Verify GitHub, gcloud, node/npm access]
-  C --> D[Prompt for account auth and CLI login]
-  D --> E[Capture project settings, env vars, and secrets]
-  E --> F[Create or validate Cloud Run deployment manifest]
-  F --> G[Sync secrets, env vars, and service bindings]
-  G --> H[Deploy app to Cloud Run]
-  H --> I[Wait for health checks and readiness]
-  I --> J[Report live URL and next update steps]
+  B --> C[Login / auth + account setup]
+  C --> D[Capture project settings, env vars, and secrets]
+  D --> E[Create/validate Cloud Run manifest]
+  E --> F[Sync secrets, env vars, and bindings]
+  F --> G[Deploy app to Cloud Run]
+  G --> H[Wait for health checks and readiness]
+  H --> I[Report live URL + next update steps]
 ```
 
 ## Package Layout
