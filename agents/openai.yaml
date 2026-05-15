@@ -1,0 +1,4 @@
+interface:
+  display_name: "Robot Future Stack Setup"
+  short_description: "Bootstrap the Robot Future web stack"
+  default_prompt: "Use $robot-future-stack-setup to bootstrap a new website stack and prepare it for one-command deploys."
