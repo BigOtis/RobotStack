@@ -26,6 +26,7 @@ NODE_ENV=
 - `.env`: local development only, ignored by git
 - `.env.example`: safe names and placeholders, committed
 - `Dockerfile`: explicit container build when needed; see `deployment.md`
+- `deploy/cloud-run.json`: deployment manifest for Cloud Run env vars, secret bindings, and health checks
 - `README.md`: local run and deploy notes
 
 ## Repository Defaults

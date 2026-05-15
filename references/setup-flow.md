@@ -123,7 +123,14 @@ If the app serves public images directly, configure public access deliberately a
 
 ## 9. Deploy
 
-Before deploy, inspect whether the project already has a valid container build. If it needs a Dockerfile, read `deployment.md` and create the smallest Dockerfile that fits the existing runtime. Use the Robot Future Node Dockerfile only when it matches the app.
+Before deploy:
+
+- Inspect whether the project already has a valid container build.
+- If it needs a Dockerfile, read `deployment.md` and create the smallest Dockerfile that fits the existing runtime.
+- Use the Robot Future Dockerfile as a sample of a known-good Cloud Run container, not as a forced template.
+- Inspect the app for required runtime config and secrets.
+- Create or update `deploy/cloud-run.json` from `assets/cloud-run.example.json`.
+- Reuse the app's actual env var names and database choice.
 
 Run:
 
@@ -133,7 +140,9 @@ Run:
 
 Then verify:
 
-- service URL
-- expected env vars
-- homepage HTTP response
+- Cloud Run revision becomes ready
+- service URL exists
+- expected non-secret env vars are present
+- expected secret bindings are present
+- health path returns a success response
 - image upload path if applicable

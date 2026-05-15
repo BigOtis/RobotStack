@@ -20,12 +20,14 @@ Use this skill to turn a reasonably technical user into a repeatable one-command
    - Squarespace DNS setup
 4. Save reusable values with `scripts/save-config.ps1`.
 5. For project work, create or update the app using `references/project-conventions.md`.
-6. For deploys, prefer `scripts/deploy-cloud-run.ps1` over reconstructing commands manually.
+6. For deploys, read `references/deployment.md`, reconcile `deploy/cloud-run.json`, and prefer `scripts/deploy-cloud-run.ps1` over reconstructing commands manually.
 7. Before finishing, verify:
    - `gh auth status`
    - `gcloud auth list`
    - project config exists in `~/.robot-future-stack/config.json`
    - encrypted secrets exist in `~/.robot-future-stack/secrets.json` when needed
+   - Cloud Run env vars and secret bindings match the app's manifest
+   - Cloud Run revision is ready
    - target service URL responds after deploy
 
 ## Operating Rules
@@ -43,6 +45,7 @@ Use this skill to turn a reasonably technical user into a repeatable one-command
   - public images in Cloud Storage only when the site requires direct public access
 - Prefer the user's existing working architecture over a forced rewrite. MongoDB is the Robot Future default, not a requirement.
 - If the user already has PostgreSQL, another database, another frontend, or another backend framework, map the workflow onto what exists unless the user explicitly wants to migrate.
+- Treat deploy completion as more than command success: reconcile env vars/secrets, wait for a ready revision, and verify the live service.
 
 ## One-Time Setup
 

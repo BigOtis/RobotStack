@@ -17,7 +17,8 @@ This is not only for Robot Future projects. It is a general-purpose website setu
 - Pauses only when human input is actually needed, such as browser auth or secret entry
 - Stores reusable local stack settings for later deploys
 - Encodes cheap Cloud Run defaults for low-traffic sites
-- Documents the Robot Future Dockerfile pattern and when to adapt it
+- Includes the Robot Future Dockerfile as a known-good example and explains when to adapt it
+- Reconciles Cloud Run env vars, Secret Manager bindings, readiness, and live health checks during deploy
 - Provides a repeatable deploy helper so later updates are routine
 
 ## Package Layout
@@ -77,6 +78,14 @@ Deploy a site:
 .\scripts\deploy-cloud-run.ps1 -ProjectId <project-id> -ServiceName <service-name> -Region <region>
 ```
 
+When `deploy/cloud-run.json` exists, the deploy helper also:
+
+- syncs Secret Manager values from locally encrypted secrets
+- binds those secrets into Cloud Run
+- applies non-secret env vars
+- waits for the Cloud Run service to become ready
+- checks the configured health path
+
 ## Local State
 
 The workflow stores reusable local settings under:
@@ -87,6 +96,8 @@ The workflow stores reusable local settings under:
 ```
 
 Do not commit project secrets. Use `.env` locally and keep safe placeholders in `.env.example`.
+
+For deployed services, use a checked-in `deploy/cloud-run.json` manifest for non-secret env vars, secret bindings, and the health path. A sample lives at `assets/cloud-run.example.json`.
 
 ## Intended User
 
