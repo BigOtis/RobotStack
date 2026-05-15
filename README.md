@@ -21,6 +21,21 @@ This is not only for Robot Future projects. It is a general-purpose website setu
 - Reconciles Cloud Run env vars, Secret Manager bindings, readiness, and live health checks during deploy
 - Provides a repeatable deploy helper so later updates are routine
 
+## General Flow
+
+```mermaid
+flowchart TD
+  A[Semi-working website ready in repo] --> B[Validate local tooling]
+  B --> C[Verify GitHub, gcloud, node/npm access]
+  C --> D[Prompt for account auth and CLI login]
+  D --> E[Capture project settings, env vars, and secrets]
+  E --> F[Create or validate Cloud Run deployment manifest]
+  F --> G[Sync secrets, env vars, and service bindings]
+  G --> H[Deploy app to Cloud Run]
+  H --> I[Wait for health checks and readiness]
+  I --> J[Report live URL and next update steps]
+```
+
 ## Package Layout
 
 ```text
