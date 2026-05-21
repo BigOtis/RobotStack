@@ -2,9 +2,9 @@
   "name": "@bigotis/robot-stack",
   "version": "1.0.0",
   "description": "A reusable Codex/Claude/Cursor skill for shipping websites to GCP and MongoDB.",
-  "main": "bin/install.js",
+  "main": "src/bin/install.js",
   "bin": {
-    "robot-stack": "./bin/install.js"
+    "robot-stack": "./src/bin/install.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
