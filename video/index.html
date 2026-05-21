@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Robot Future Stack Setup Ad</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #e7ecef;
+        color: #274c77;
+        font-family: "IBM Plex Sans", sans-serif;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #e7ecef;
+      }
+      #scene-2, #scene-3, #scene-4 { opacity: 0; visibility: hidden; }
+      .grid, .wash {
+        position: absolute;
+        pointer-events: none;
+      }
+      .grid {
+        inset: 0;
+        opacity: 0.22;
+        background-image:
+          linear-gradient(rgba(39,76,119,.12) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(39,76,119,.12) 2px, transparent 2px);
+        background-size: 78px 78px;
+      }
+      .wash {
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(163,206,241,.8), rgba(163,206,241,0));
+      }
+      .wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 70px 96px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        font: 22px "IBM Plex Mono", monospace;
+        text-transform: uppercase;
+      }
+      .rule { height: 4px; background: #6096ba; transform-origin: left center; }
+      h1, h2, p { margin: 0; }
+      h1, h2 {
+        font-family: "Fraunces", serif;
+        line-height: .94;
+        letter-spacing: 0;
+      }
+      h1 { font-size: 104px; max-width: 1180px; }
+      h2 { font-size: 78px; max-width: 1180px; }
+      .lede { font-size: 42px; max-width: 980px; line-height: 1.18; }
+      .surface {
+        background: #fff;
+        border: 3px solid rgba(39,76,119,.14);
+        border-radius: 8px;
+        box-shadow: 0 18px 40px rgba(39,76,119,.08);
+      }
+      .brand-row, .stack-row {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .brand-chip {
+        min-height: 78px;
+        padding: 14px 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font: 700 24px "IBM Plex Sans", sans-serif;
+      }
+      .brand-chip.codex { background: #ffffff; color: #101010; border-color: #101010; }
+      .brand-chip.claude { background: #ffffff; color: #8f3d22; border-color: #d97757; }
+      .wordmark {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+      }
+      .wordmark small {
+        font: 16px "IBM Plex Mono", monospace;
+        text-transform: uppercase;
+      }
+      .mark {
+        width: 34px;
+        height: 34px;
+        object-fit: contain;
+      }
+      .agent-row {
+        display: flex;
+        gap: 22px;
+        margin-top: 6px;
+      }
+      .agent-card {
+        width: 252px;
+        height: 170px;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .agent-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .scene-two-layout {
+        display: grid;
+        grid-template-columns: 1.05fr .95fr;
+        gap: 34px;
+        align-items: end;
+        margin-top: 8px;
+      }
+      .terminal {
+        width: 100%;
+        min-height: 392px;
+        padding: 24px 28px;
+        background: #17324d;
+        color: #e7ecef;
+        border-radius: 8px;
+        font: 28px/1.45 "IBM Plex Mono", monospace;
+      }
+      .terminal-head {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #a3cef1;
+      }
+      .line { opacity: 0; }
+      .ok { color: #a3cef1; }
+      .logo-cluster {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+      .logo-card {
+        height: 170px;
+        padding: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .logo-card img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .logo-card.cloud-run img { width: 112px; }
+      .route {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        bottom: 96px;
+        height: 8px;
+        background: rgba(39,76,119,.14);
+      }
+      .route > span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #6096ba;
+        transform-origin: left center;
+      }
+      .scale-panel {
+        width: 1180px;
+        display: grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 24px;
+        margin-top: 14px;
+      }
+      .scale-card, .cost-card {
+        padding: 28px;
+      }
+      .scale-title {
+        font: 26px "IBM Plex Mono", monospace;
+        margin-bottom: 20px;
+      }
+      .traffic {
+        display: flex;
+        align-items: end;
+        gap: 18px;
+        height: 210px;
+      }
+      .bar {
+        width: 78px;
+        background: #6096ba;
+        border-radius: 8px 8px 0 0;
+        transform-origin: bottom center;
+      }
+      .cost-big {
+        font: 800 64px "Fraunces", serif;
+      }
+      .cost-copy {
+        margin-top: 12px;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+      .cta-wrap {
+        justify-content: center;
+      }
+      .command {
+        width: fit-content;
+        padding: 20px 26px;
+        font: 30px "IBM Plex Mono", monospace;
+      }
+      .url {
+        width: fit-content;
+        padding: 16px 20px;
+        font: 24px "IBM Plex Mono", monospace;
+      }
+      .footer-logos {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .mini-logo {
+        height: 72px;
+        min-width: 168px;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mini-logo img { max-width: 100%; max-height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="20">
+      <section id="scene-1" class="scene" data-layout-allow-overflow>
+        <div class="grid"></div>
+        <div class="wash" data-layout-allow-overflow style="right:-150px; top:-220px;"></div>
+        <div class="wrap" style="--hf-studio-offset-x: -5px; --hf-studio-offset-y: -8px; translate: var(--hf-studio-offset-x, 0px) var(--hf-studio-offset-y, 0px)" data-hf-studio-path-offset="true" data-hf-studio-original-translate="" data-hf-studio-original-inline-translate="">
+          <div class="meta"><span>robot future stack setup</span><span>20s ad</span></div>
+          <div class="rule"></div>
+          <h1>Your website is ready.</h1>
+          <p class="lede">Don't let deployment slow you down.</p>
+          <div class="agent-row">
+            <div class="agent-card codex surface" style="--hf-studio-width: 389px; --hf-studio-height: 346px; width: 389px; height: 346px; min-width: 0px; min-height: 0px; max-width: none; max-height: none; flex-basis: 389px; flex-grow: 0; flex-shrink: 0; box-sizing: border-box; scale: none; --hf-studio-offset-x: -1px; --hf-studio-offset-y: 171px; translate: var(--hf-studio-offset-x, 0px) var(--hf-studio-offset-y, 0px)" data-hf-studio-box-size="true" data-hf-studio-original-width="" data-hf-studio-original-height="" data-hf-studio-original-min-width="" data-hf-studio-original-min-height="" data-hf-studio-original-max-width="" data-hf-studio-original-max-height="" data-hf-studio-original-flex-basis="" data-hf-studio-original-flex-grow="" data-hf-studio-original-flex-shrink="" data-hf-studio-original-box-sizing="" data-hf-studio-original-display="" data-hf-studio-path-offset="true" data-hf-studio-original-translate="" data-hf-studio-original-inline-translate="none"><img src="assets/codex.png" alt="Codex" /></div>
+            <div class="agent-card claude surface" style="--hf-studio-width: 616px; --hf-studio-height: 557px; width: 616px; height: 557px; min-width: 0px; min-height: 0px; max-width: none; max-height: none; flex-basis: 616px; flex-grow: 0; flex-shrink: 0; box-sizing: border-box; scale: none; --hf-studio-offset-x: 687px; --hf-studio-offset-y: 55px; translate: var(--hf-studio-offset-x, 0px) var(--hf-studio-offset-y, 0px)" data-hf-studio-box-size="true" data-hf-studio-original-width="" data-hf-studio-original-height="" data-hf-studio-original-min-width="" data-hf-studio-original-min-height="" data-hf-studio-original-max-width="" data-hf-studio-original-max-height="" data-hf-studio-original-flex-basis="" data-hf-studio-original-flex-grow="" data-hf-studio-original-flex-shrink="" data-hf-studio-original-box-sizing="" data-hf-studio-original-display="" data-hf-studio-path-offset="true" data-hf-studio-original-translate="" data-hf-studio-original-inline-translate="none"><img src="assets/claude-code.png" alt="Claude Code" /></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-2" class="scene" data-layout-allow-overflow>
+        <div class="grid"></div>
+        <div class="wash" data-layout-allow-overflow style="left:-140px; bottom:-220px;"></div>
+        <div class="wrap">
+          <div class="meta"><span>agent-assisted deploy</span><span>commands run for you</span></div>
+          <div class="rule"></div>
+          <h2>Claude and Codex can build the site fast. Now they can make sure it's live.</h2>
+          <div class="scene-two-layout">
+            <div class="terminal surface">
+              <div class="terminal-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="line">$ robot-future-stack-setup</div>
+              <div class="line ok">✓ tools checked</div>
+              <div class="line ok">✓ config saved</div>
+              <div class="line">$ deploy-cloud-run.ps1</div>
+              <div class="line ok">✓ secrets synced</div>
+              <div class="line ok">✓ service ready</div>
+            </div>
+            <div class="logo-cluster">
+              <div class="logo-card surface"><img src="assets/google-cloud.svg" alt="Google Cloud" /></div>
+              <div class="logo-card surface"><img src="assets/mongodb.svg" alt="MongoDB" /></div>
+              <div class="logo-card surface"><img src="assets/github-logos/GitHub Logos/SVG/GitHub_Lockup_Black.svg" alt="GitHub" /></div>
+              <div class="logo-card cloud-run surface"><img src="assets/cloud-run.png" alt="Cloud Run" /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-3" class="scene" data-layout-allow-overflow>
+        <div class="grid"></div>
+        <div class="wash" data-layout-allow-overflow style="right:-100px; bottom:-200px;"></div>
+        <div class="wrap">
+          <div class="meta"><span>cheap hosting</span><span>room to grow</span></div>
+          <div class="rule"></div>
+          <h2>Start cheap. Scale when the idea works.</h2>
+          <div class="scale-panel">
+            <div class="scale-card surface">
+              <div class="scale-title">traffic</div>
+              <div class="traffic">
+                <div class="bar" style="height:56px;"></div>
+                <div class="bar" style="height:82px;"></div>
+                <div class="bar" style="height:112px;"></div>
+                <div class="bar" style="height:158px;"></div>
+                <div class="bar" style="height:198px;"></div>
+              </div>
+            </div>
+            <div class="cost-card surface">
+              <div class="cost-big">scale to zero</div>
+              <p class="cost-copy">Low-cost when idle. Ready to grow with traffic.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-4" class="scene" data-layout-allow-overflow>
+        <div class="grid"></div>
+        <div class="wash" data-layout-allow-overflow style="left:-130px; top:-180px;"></div>
+        <div class="wrap cta-wrap">
+          <div class="meta"><span>ship the idea</span><span>repeatable deploy</span></div>
+          <div class="rule"></div>
+          <h1>Deploy faster. Spend less. Keep building.</h1>
+          <div class="command surface">$robot-future-stack-setup</div>
+          <div class="url surface">status: live URL verified</div>
+          <div class="footer-logos">
+            <div class="mini-logo surface"><img src="assets/google-cloud.svg" alt="Google Cloud" /></div>
+            <div class="mini-logo surface"><img src="assets/mongodb.svg" alt="MongoDB" /></div>
+            <div class="mini-logo surface"><img src="assets/github-logos/GitHub Logos/SVG/GitHub_Lockup_Black.svg" alt="GitHub" /></div>
+            <div class="mini-logo surface"><img src="assets/codex.png" alt="Codex" /></div>
+            <div class="mini-logo surface"><img src="assets/claude-code.png" alt="Claude Code" /></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="route"><span></span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from("#scene-1 .meta", { y: -20, opacity: 0, duration: 0.55, ease: "power2.out" }, 0.2);
+      tl.from("#scene-1 .rule", { scaleX: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.from("#scene-1 h1", { y: 34, opacity: 0, duration: 0.9, ease: "power4.out" }, 0.7);
+      tl.from("#scene-1 .lede", { y: 28, opacity: 0, duration: 0.8, ease: "sine.out" }, 1.35);
+      tl.from("#scene-1 .agent-card", { y: 24, opacity: 0, duration: 0.7, stagger: 0.16, ease: "back.out(1.2)" }, 2.0);
+      tl.fromTo(".route span", { scaleX: 0 }, { scaleX: 1, duration: 19.2, ease: "none" }, 0.4);
+      tl.to("#scene-1 .wash", { scale: 1.08, duration: 5.5, ease: "sine.inOut" }, 0);
+
+      tl.set("#scene-2", { visibility: "visible" }, 5.8);
+      tl.to("#scene-1", { x: -1920, duration: 0.45, ease: "power3.inOut" }, 5.8);
+      tl.fromTo("#scene-2", { x: 1920, opacity: 1 }, { x: 0, duration: 0.45, ease: "power3.inOut" }, 5.8);
+      tl.set("#scene-1", { visibility: "hidden" }, 6.26);
+      tl.from("#scene-2 .meta", { y: -18, opacity: 0, duration: 0.35, ease: "power2.out" }, 6.4);
+      tl.from("#scene-2 .rule", { scaleX: 0, duration: 0.42, ease: "power3.out" }, 6.48);
+      tl.from("#scene-2 h2", { y: 28, opacity: 0, duration: 0.65, ease: "power4.out" }, 6.72);
+      tl.from("#scene-2 .terminal", { x: -44, opacity: 0, duration: 0.55, ease: "power4.out" }, 7.2);
+      tl.from("#scene-2 .logo-card", { y: 24, opacity: 0, duration: 0.36, stagger: 0.1, ease: "back.out(1.2)" }, 7.42);
+      tl.to("#scene-2 .line", { opacity: 1, duration: 0.01, stagger: 0.4 }, 7.45);
+      tl.to("#scene-2 .wash", { x: 20, duration: 5.0, ease: "sine.inOut" }, 6.0);
+
+      tl.set("#scene-3", { visibility: "visible" }, 11.4);
+      tl.to("#scene-2", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.42, ease: "power2.inOut" }, 11.4);
+      tl.fromTo("#scene-3", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.42, ease: "power2.inOut" }, 11.5);
+      tl.set("#scene-2", { visibility: "hidden" }, 11.84);
+      tl.from("#scene-3 .meta", { y: -18, opacity: 0, duration: 0.3, ease: "power2.out" }, 11.95);
+      tl.from("#scene-3 .rule", { scaleX: 0, duration: 0.35, ease: "power3.out" }, 12.02);
+      tl.from("#scene-3 h2", { y: 28, opacity: 0, duration: 0.48, ease: "power4.out" }, 12.16);
+      tl.from("#scene-3 .scale-card", { x: -36, opacity: 0, duration: 0.42, ease: "power3.out" }, 12.42);
+      tl.from("#scene-3 .cost-card", { x: 36, opacity: 0, duration: 0.42, ease: "power3.out" }, 12.54);
+      tl.from("#scene-3 .bar", { scaleY: 0, duration: 0.52, stagger: 0.1, ease: "expo.out" }, 12.72);
+      tl.to("#scene-3 .wash", { scale: 1.08, duration: 4.2, ease: "sine.inOut" }, 11.9);
+
+      tl.set("#scene-4", { visibility: "visible" }, 15.9);
+      tl.to("#scene-3", { x: -1920, duration: 0.42, ease: "power3.inOut" }, 15.9);
+      tl.fromTo("#scene-4", { x: 1920, opacity: 1 }, { x: 0, duration: 0.42, ease: "power3.inOut" }, 15.9);
+      tl.set("#scene-3", { visibility: "hidden" }, 16.33);
+      tl.from("#scene-4 .meta", { y: -18, opacity: 0, duration: 0.3, ease: "power2.out" }, 16.48);
+      tl.from("#scene-4 .rule", { scaleX: 0, duration: 0.35, ease: "power3.out" }, 16.56);
+      tl.from("#scene-4 h1", { y: 28, opacity: 0, duration: 0.5, ease: "power4.out" }, 16.72);
+      tl.from("#scene-4 .command", { x: -28, opacity: 0, duration: 0.36, ease: "back.out(1.2)" }, 17.08);
+      tl.from("#scene-4 .url", { x: 24, opacity: 0, duration: 0.36, ease: "power3.out" }, 17.26);
+      tl.from("#scene-4 .mini-logo", { y: 20, opacity: 0, duration: 0.3, stagger: 0.07, ease: "back.out(1.2)" }, 17.48);
+      tl.to("#scene-4 .wash", { scale: 1.1, duration: 3.7, ease: "sine.inOut" }, 16.2);
+      tl.to("#scene-4", { opacity: 0, duration: 0.7, ease: "power1.inOut" }, 19.2);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

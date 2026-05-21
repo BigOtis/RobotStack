@@ -1,5 +1,5 @@
 {
-  "name": "robot-stack",
+  "name": "@bigotis/robot-stack",
   "version": "1.0.0",
   "description": "A reusable Codex/Claude/Cursor skill for shipping websites to GCP and MongoDB.",
   "main": "bin/install.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BigOtis/robot-stack.git"
+    "url": "git+https://github.com/BigOtis/RobotStack.git"
   },
   "keywords": [
     "ai",
@@ -26,7 +26,10 @@
   "author": "Robot Future",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BigOtis/robot-stack/issues"
+    "url": "https://github.com/BigOtis/RobotStack/issues"
   },
-  "homepage": "https://github.com/BigOtis/robot-stack#readme"
+  "homepage": "https://github.com/BigOtis/RobotStack#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }

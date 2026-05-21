@@ -53,7 +53,7 @@ The easiest way to install Robot Stack into your project is via `npx`. This will
 Run the following command in the root of your project:
 
 ```bash
-npx robot-stack init
+npx @bigotis/robot-stack init
 ```
 
 Alternatively, you can install it manually:

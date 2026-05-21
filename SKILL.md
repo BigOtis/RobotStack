@@ -24,8 +24,8 @@ Use this skill to turn a reasonably technical user into a repeatable one-command
 7. Before finishing, verify:
    - `gh auth status`
    - `gcloud auth list`
-   - project config exists in `~/.robot-future-stack/config.json`
-   - encrypted secrets exist in `~/.robot-future-stack/secrets.json` when needed
+   - project config exists in `~/.robot-stack/config.json`
+   - encrypted secrets exist in `~/.robot-stack/secrets.json` when needed
    - Cloud Run env vars and secret bindings match the app's manifest
    - Cloud Run revision is ready
    - target service URL responds after deploy
@@ -80,7 +80,7 @@ If config already exists, the script can infer omitted values.
 Codex skills are not Claude Code skills. To emulate the same behavior in Claude Code, copy:
 
 - `assets/claude/CLAUDE.md`
-- `assets/claude/commands/robot-future-stack-setup.md`
+- `assets/claude/commands/robot-stack.md`
 
 See `references/claude-bridge.md` for placement and expectations.
 
