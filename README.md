@@ -1,13 +1,13 @@
 # 🤖 Robot Stack - by Robot Future
 
-[![Codex Skill](https://img.shields.io/badge/Codex-Skill-blue.svg)](./SKILL.md)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-blue.svg)](./template/SKILL.md)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-purple.svg)](#claude-code-usage)
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-black.svg)](#cursor-usage)
 [![Google Cloud](https://img.shields.io/badge/GCP-Cloud_Run-4285F4.svg)](#stack-shape)
 
 A reusable Codex skill and Claude Code companion pack for shipping small websites without learning every cloud product the hard way.
 
-![Agent guided deployment flow](./assets/agent-to-cloud.svg)
+![Agent guided deployment flow](./template/assets/agent-to-cloud.svg)
 
 **While the initial setup is optimized for small, low-traffic sites, it runs on enterprise-grade infrastructure (Google Cloud and MongoDB) that can seamlessly scale up to support any size website, serving millions of users as your project grows.**
 
@@ -35,11 +35,11 @@ The goal is to make cloud deployment feel routine for everyday agent users. Clou
 
 ## 🏗️ Stack Shape
 
-![Prescriptive MongoDB and Google Cloud stack](./assets/prescriptive-stack.svg)
+![Prescriptive MongoDB and Google Cloud stack](./template/assets/prescriptive-stack.svg)
 
 ## 💸 Why It Saves Money
 
-![Cost control for agent-built sites](./assets/cost-control.svg)
+![Cost control for agent-built sites](./template/assets/cost-control.svg)
 
 - **Scale-to-Zero:** Uses Cloud Run defaults designed for low-traffic sites, meaning you pay nothing when no one is visiting.
 - **True Ownership:** Keeps code, database, hosting, storage, and domain control in accounts *you* own.
@@ -66,7 +66,7 @@ Install or copy this folder into your Codex skills directory, then invoke:
 /robot-stack
 ```
 
-The main skill file is [SKILL.md](./SKILL.md).
+The main skill file is [SKILL.md](./template/SKILL.md).
 
 ### Claude Code Usage
 
@@ -84,7 +84,7 @@ Claude Code does not consume Codex `SKILL.md` packages directly. To emulate the 
 
 Cursor does not consume Codex `SKILL.md` packages directly, but it can use the same repo-local instructions.
 
-1. Copy the operating guidance from [SKILL.md](./SKILL.md) into your project rules, or reference this folder from your existing Cursor rules.
+1. Copy the operating guidance from [SKILL.md](./template/SKILL.md) into your project rules, or reference this folder from your existing Cursor rules.
 2. Copy `assets/claude/commands/robot-stack.md` into a repo note or command prompt you can paste into Cursor chat.
 3. Ask Cursor to follow the Robot Future stack setup workflow for one-time setup, deployment config, and Cloud Run updates.
 

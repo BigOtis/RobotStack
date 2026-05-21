@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const sourceDir = path.join(__dirname, '..');
+const templateDir = path.join(sourceDir, 'template');
 const targetDir = process.cwd();
 
 console.log('🤖 Installing Robot Stack...');
@@ -30,9 +31,9 @@ const stackDir = path.join(targetDir, '.robot-stack');
 console.log(`📁 Copying core files to ${stackDir}...`);
 fs.mkdirSync(stackDir, { recursive: true });
 
-const toCopy = ['assets', 'references', 'scripts', 'SKILL.md', 'README.md'];
+const toCopy = ['assets', 'references', 'scripts', 'SKILL.md'];
 for (const item of toCopy) {
-    const srcItem = path.join(sourceDir, item);
+    const srcItem = path.join(templateDir, item);
     const destItem = path.join(stackDir, item);
     if (fs.existsSync(srcItem)) {
         if (fs.statSync(srcItem).isDirectory()) {
@@ -41,6 +42,13 @@ for (const item of toCopy) {
             fs.copyFileSync(srcItem, destItem);
         }
     }
+}
+
+// Also copy README.md from root
+const srcReadme = path.join(sourceDir, 'README.md');
+const destReadme = path.join(stackDir, 'README.md');
+if (fs.existsSync(srcReadme)) {
+    fs.copyFileSync(srcReadme, destReadme);
 }
 
 // 2. Detect agents
@@ -68,7 +76,7 @@ if (hasClaude) {
     const commandsDir = path.join(targetDir, '.claude', 'commands');
     fs.mkdirSync(commandsDir, { recursive: true });
     
-    const claudeCmdSrc = path.join(sourceDir, 'assets', 'claude', 'commands', 'robot-stack.md');
+    const claudeCmdSrc = path.join(templateDir, 'assets', 'claude', 'commands', 'robot-stack.md');
     if (fs.existsSync(claudeCmdSrc)) {
         fs.copyFileSync(claudeCmdSrc, path.join(commandsDir, 'robot-stack.md'));
     } else {
