@@ -1,9 +1,9 @@
 ---
-name: robot-future-stack-setup
+name: robot-stack
 description: "Bootstrap and maintain the Robot Future-style website stack, a general-purpose setup based on how Robot Future is built rather than a stack limited to Robot Future itself: GitHub repos, Google Cloud Run, Google Cloud Storage image hosting, Squarespace-managed domains, and an app database such as MongoDB Atlas or an existing alternative like PostgreSQL. Use when Codex needs to guide a vibe-coder through one-time machine/account setup, collect missing credentials interactively, preserve an existing app architecture when practical, save reusable local config, create any new site using this stack, or deploy/update an existing site with minimal cloud knowledge."
 ---
 
-# Robot Future Stack Setup
+# Robot Stack - by Robot Future
 
 Use this skill to turn a reasonably technical user into a repeatable one-command deploy workflow for small websites.
 

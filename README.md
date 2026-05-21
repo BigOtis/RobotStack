@@ -1,66 +1,62 @@
-# Robot Future Stack Setup
+# 🤖 Robot Stack - by Robot Future
 
-A reusable Codex skill and Claude Code companion pack for bootstrapping small websites with the stack used by Robot Future:
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-blue.svg)](./SKILL.md)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-purple.svg)](#claude-code-usage)
+[![Cursor](https://img.shields.io/badge/Cursor-Compatible-black.svg)](#cursor-usage)
+[![Google Cloud](https://img.shields.io/badge/GCP-Cloud_Run-4285F4.svg)](#stack-shape)
 
-- GitHub for source control
-- MongoDB Atlas for app data by default
-- Google Cloud Run for web hosting
-- Google Cloud Storage for image hosting
-- Squarespace Domains for domain ownership and DNS
+A reusable Codex skill and Claude Code companion pack for shipping small websites without learning every cloud product the hard way.
 
-This is not only for Robot Future projects. It is a general-purpose website setup based on the Robot Future stack, aimed at capable builders who can work on an app but do not want to learn every cloud product in depth before they can ship. MongoDB is the reference default, not a requirement; if your app already uses PostgreSQL or another healthy architecture, the workflow should adapt to that instead of forcing a rewrite.
+If you already pay for an AI coding agent like Codex, Claude Code, or Cursor, you should be able to use that agent to build, configure, deploy, and update a real site—without also paying for a hosted app builder (such as Replit or Lovable) just to get it online. 
 
-## What It Does
+This skill gives your agent a **prescriptive deployment path**:
+- **GitHub** for the repository
+- **MongoDB Atlas** (or your existing DB) for flexible app data
+- **Google Cloud Run** for low-cost, scale-to-zero hosting
+- **Google Cloud Storage** for assets
+- **Squarespace / Custom DNS** for domain setup
 
-- Checks whether `git`, `gh`, `gcloud`, `node`, and `npm` are installed
-- Walks the user through one-time account and CLI setup
-- Pauses only when human input is actually needed, such as browser auth or secret entry
-- Stores reusable local stack settings for later deploys
-- Encodes cheap Cloud Run defaults for low-traffic sites
-- Includes the Robot Future Dockerfile as a known-good example and explains when to adapt it
-- Reconciles Cloud Run env vars, Secret Manager bindings, readiness, and live health checks during deploy
-- Provides a repeatable deploy helper so later updates are routine
+The goal is to make cloud deployment feel routine for everyday agent users. Cloud Run can scale idle hobby sites down to zero, MongoDB works well while product data is still changing shape, and the included scripts encode the repeated setup steps so later deploys are boring. The defaults are opinionated because agents work better with a clear target, but the workflow can adapt to existing projects instead of demanding a rewrite.
 
-## General Flow
+![Agent guided deployment flow](./assets/agent-to-cloud.svg)
 
-```mermaid
-flowchart LR
-  A[Semi-working website ready in repo] --> B[Validate local tooling]
-  B --> C[Login / auth + account setup]
-  C --> D[Capture project settings, env vars, and secrets]
-  D --> E[Create/validate Cloud Run manifest]
-  E --> F[Sync secrets, env vars, and bindings]
-  F --> G[Deploy app to Cloud Run]
-  G --> H[Wait for health checks and readiness]
-  H --> I[Report live URL + next update steps]
-```
+## ✨ What It Does
 
-## Package Layout
+- **Validates Environment:** Checks whether `git`, `gh`, `gcloud`, `node`, and `npm` are installed.
+- **Guided Onboarding:** Walks the user through one-time account and CLI setup.
+- **Minimal Interruptions:** Pauses only when human input is actually needed, such as browser auth or secret entry.
+- **Stateful Config:** Stores reusable local stack settings (`~/.robot-future-stack/`) for later deploys.
+- **Cost-Optimized Defaults:** Encodes cheap Cloud Run defaults for low-traffic sites (scale-to-zero, low CPU/memory).
+- **Containerization:** Includes the Robot Future Dockerfile as a known-good example and explains when to adapt it.
+- **Safe Deployments:** Reconciles Cloud Run env vars, Secret Manager bindings, readiness, and live health checks during deploy.
+- **Repeatable Workflow:** Provides a robust deploy helper script so later updates are entirely routine.
 
-```text
-.
-|-- SKILL.md
-|-- agents/
-|-- assets/
-|   |-- .env.example
-|   `-- claude/
-|       |-- CLAUDE.md
-|       `-- commands/robot-future-stack-setup.md
-|-- references/
-`-- scripts/
-```
+## 🏗️ Stack Shape
 
-## Codex Usage
+![Prescriptive MongoDB and Google Cloud stack](./assets/prescriptive-stack.svg)
+
+## 💸 Why It Saves Money
+
+![Cost control for agent-built sites](./assets/cost-control.svg)
+
+- **Scale-to-Zero:** Uses Cloud Run defaults designed for low-traffic sites, meaning you pay nothing when no one is visiting.
+- **True Ownership:** Keeps code, database, hosting, storage, and domain control in accounts *you* own.
+- **No Double-Paying:** Avoids an extra app-builder subscription on top of the agent subscription you already pay for.
+- **Future-Proof:** Leaves a cleaner migration path because the app is deployed on standard GitHub, MongoDB, and GCP primitives.
+
+## 🚀 Usage Guide
+
+### Codex Usage
 
 Install or copy this folder into your Codex skills directory, then invoke:
 
 ```text
-$robot-future-stack-setup
+/robot-future-stack-setup
 ```
 
 The main skill file is [SKILL.md](./SKILL.md).
 
-## Claude Code Usage
+### Claude Code Usage
 
 Claude Code does not consume Codex `SKILL.md` packages directly. To emulate the same workflow:
 
@@ -72,35 +68,39 @@ Claude Code does not consume Codex `SKILL.md` packages directly. To emulate the 
 /robot-future-stack-setup
 ```
 
-## Helper Scripts
+### Cursor Usage
+
+Cursor does not consume Codex `SKILL.md` packages directly, but it can use the same repo-local instructions.
+
+1. Copy the operating guidance from [SKILL.md](./SKILL.md) into your project rules, or reference this folder from your existing Cursor rules.
+2. Copy `assets/claude/commands/robot-future-stack-setup.md` into a repo note or command prompt you can paste into Cursor chat.
+3. Ask Cursor to follow the Robot Future stack setup workflow for one-time setup, deployment config, and Cloud Run updates.
+
+## 🛠️ Helper Scripts
 
 Check local prerequisites:
-
 ```powershell
 .\scripts\bootstrap.ps1 -CheckOnly
 ```
 
 Save reusable settings:
-
 ```powershell
 .\scripts\save-config.ps1
 ```
 
 Deploy a site:
-
 ```powershell
 .\scripts\deploy-cloud-run.ps1 -ProjectId <project-id> -ServiceName <service-name> -Region <region>
 ```
 
 When `deploy/cloud-run.json` exists, the deploy helper also:
+- Syncs Secret Manager values from locally encrypted secrets
+- Binds those secrets into Cloud Run
+- Applies non-secret env vars
+- Waits for the Cloud Run service to become ready
+- Checks the configured health path
 
-- syncs Secret Manager values from locally encrypted secrets
-- binds those secrets into Cloud Run
-- applies non-secret env vars
-- waits for the Cloud Run service to become ready
-- checks the configured health path
-
-## Local State
+## 💾 Local State
 
 The workflow stores reusable local settings under:
 
@@ -109,19 +109,18 @@ The workflow stores reusable local settings under:
 ~/.robot-future-stack/secrets.json
 ```
 
-Do not commit project secrets. Use `.env` locally and keep safe placeholders in `.env.example`.
+> **Warning:** Do not commit project secrets. Use `.env` locally and keep safe placeholders in `.env.example`.
 
 For deployed services, use a checked-in `deploy/cloud-run.json` manifest for non-secret env vars, secret bindings, and the health path. A sample lives at `assets/cloud-run.example.json`.
 
-## Intended User
+## 🎯 Intended User
 
-This is for "vibe coder" through mid-level developers:
+This is for anyone using Codex, Claude Code, or a similar coding agent to build a real website:
+- **Builders** who want the agent to handle repeatable deployment work.
+- **Developers** who want standard cloud ownership without becoming GCP specialists.
+- **Small-site owners** who want low-cost hosting without another app-builder subscription.
 
-- comfortable editing code
-- comfortable following prompts
-- not interested in becoming a cloud specialist just to launch a small site
-
-## Notes
+## 📝 Notes
 
 - The defaults are opinionated, not universal.
 - Cloud Run is configured for low-cost hobby-site behavior first.
