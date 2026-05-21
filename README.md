@@ -7,6 +7,8 @@
 
 A reusable Codex skill and Claude Code companion pack for shipping small websites without learning every cloud product the hard way.
 
+![Agent guided deployment flow](./assets/agent-to-cloud.svg)
+
 **While the initial setup is optimized for small, low-traffic sites, it runs on enterprise-grade infrastructure (Google Cloud and MongoDB) that can seamlessly scale up to support any size website, serving millions of users as your project grows.**
 
 If you already pay for an AI coding agent like Codex, Claude Code, or Cursor, you should be able to use that agent to build, configure, deploy, and update a real site—without also paying for a hosted app builder (such as Replit or Lovable) just to get it online. 
@@ -19,8 +21,6 @@ This skill gives your agent a **prescriptive deployment path**:
 - **Squarespace / Custom DNS** for domain setup
 
 The goal is to make cloud deployment feel routine for everyday agent users. Cloud Run can scale idle hobby sites down to zero, MongoDB works well while product data is still changing shape, and the included scripts encode the repeated setup steps so later deploys are boring. The defaults are opinionated because agents work better with a clear target, but the workflow can adapt to existing projects instead of demanding a rewrite.
-
-![Agent guided deployment flow](./assets/agent-to-cloud.svg)
 
 ## ✨ What It Does
 
