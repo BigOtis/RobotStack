@@ -7,6 +7,8 @@
 
 A reusable Codex skill and Claude Code companion pack for shipping small websites without learning every cloud product the hard way.
 
+**While the initial setup is optimized for small, low-traffic sites, it runs on enterprise-grade infrastructure (Google Cloud and MongoDB) that can seamlessly scale up to support any size website, serving millions of users as your project grows.**
+
 If you already pay for an AI coding agent like Codex, Claude Code, or Cursor, you should be able to use that agent to build, configure, deploy, and update a real site—without also paying for a hosted app builder (such as Replit or Lovable) just to get it online. 
 
 This skill gives your agent a **prescriptive deployment path**:
@@ -42,7 +44,7 @@ The goal is to make cloud deployment feel routine for everyday agent users. Clou
 - **Scale-to-Zero:** Uses Cloud Run defaults designed for low-traffic sites, meaning you pay nothing when no one is visiting.
 - **True Ownership:** Keeps code, database, hosting, storage, and domain control in accounts *you* own.
 - **No Double-Paying:** Avoids an extra app-builder subscription on top of the agent subscription you already pay for.
-- **Future-Proof:** Leaves a cleaner migration path because the app is deployed on standard GitHub, MongoDB, and GCP primitives.
+- **Future-Proof & Infinitely Scalable:** Leaves a cleaner migration path because the app is deployed on standard GitHub, MongoDB, and GCP primitives. While it starts cheap, Cloud Run and MongoDB Atlas are capable of seamlessly scaling to serve millions of users when you need it.
 
 ## 🚀 Usage Guide
 

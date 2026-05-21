@@ -5,7 +5,7 @@ description: "Bootstrap and maintain the Robot Future-style website stack, a gen
 
 # Robot Stack - by Robot Future
 
-Use this skill to turn a reasonably technical user into a repeatable one-command deploy workflow for small websites.
+Use this skill to turn a reasonably technical user into a repeatable one-command deploy workflow for small websites. While the defaults are optimized for low costs, the underlying GCP and MongoDB infrastructure can easily scale to support millions of users.
 
 ## Core Workflow
 
