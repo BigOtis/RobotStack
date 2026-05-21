@@ -27,7 +27,7 @@ The goal is to make cloud deployment feel routine for everyday agent users. Clou
 - **Validates Environment:** Checks whether `git`, `gh`, `gcloud`, `node`, and `npm` are installed.
 - **Guided Onboarding:** Walks the user through one-time account and CLI setup.
 - **Minimal Interruptions:** Pauses only when human input is actually needed, such as browser auth or secret entry.
-- **Stateful Config:** Stores reusable local stack settings (`~/.robot-future-stack/`) for later deploys.
+- **Stateful Config:** Stores reusable local stack settings (`~/.robot-stack/`) for later deploys.
 - **Cost-Optimized Defaults:** Encodes cheap Cloud Run defaults for low-traffic sites (scale-to-zero, low CPU/memory).
 - **Containerization:** Includes the Robot Future Dockerfile as a known-good example and explains when to adapt it.
 - **Safe Deployments:** Reconciles Cloud Run env vars, Secret Manager bindings, readiness, and live health checks during deploy.
@@ -48,12 +48,22 @@ The goal is to make cloud deployment feel routine for everyday agent users. Clou
 
 ## 🚀 Usage Guide
 
+The easiest way to install Robot Stack into your project is via `npx`. This will automatically detect if you are using Codex, Claude Code, or Cursor and install the necessary rules and commands into your project's hidden folders.
+
+Run the following command in the root of your project:
+
+```bash
+npx robot-stack init
+```
+
+Alternatively, you can install it manually:
+
 ### Codex Usage
 
 Install or copy this folder into your Codex skills directory, then invoke:
 
 ```text
-/robot-future-stack-setup
+/robot-stack
 ```
 
 The main skill file is [SKILL.md](./SKILL.md).
@@ -63,11 +73,11 @@ The main skill file is [SKILL.md](./SKILL.md).
 Claude Code does not consume Codex `SKILL.md` packages directly. To emulate the same workflow:
 
 1. Copy `assets/claude/CLAUDE.md` into your repo root, or import it from your existing project `CLAUDE.md`.
-2. Copy `assets/claude/commands/robot-future-stack-setup.md` into `.claude/commands/`.
+2. Copy `assets/claude/commands/robot-stack.md` into `.claude/commands/`.
 3. Run:
 
 ```text
-/robot-future-stack-setup
+/robot-stack
 ```
 
 ### Cursor Usage
@@ -75,7 +85,7 @@ Claude Code does not consume Codex `SKILL.md` packages directly. To emulate the 
 Cursor does not consume Codex `SKILL.md` packages directly, but it can use the same repo-local instructions.
 
 1. Copy the operating guidance from [SKILL.md](./SKILL.md) into your project rules, or reference this folder from your existing Cursor rules.
-2. Copy `assets/claude/commands/robot-future-stack-setup.md` into a repo note or command prompt you can paste into Cursor chat.
+2. Copy `assets/claude/commands/robot-stack.md` into a repo note or command prompt you can paste into Cursor chat.
 3. Ask Cursor to follow the Robot Future stack setup workflow for one-time setup, deployment config, and Cloud Run updates.
 
 ## 🛠️ Helper Scripts
@@ -107,8 +117,8 @@ When `deploy/cloud-run.json` exists, the deploy helper also:
 The workflow stores reusable local settings under:
 
 ```text
-~/.robot-future-stack/config.json
-~/.robot-future-stack/secrets.json
+~/.robot-stack/config.json
+~/.robot-stack/secrets.json
 ```
 
 > **Warning:** Do not commit project secrets. Use `.env` locally and keep safe placeholders in `.env.example`.
